@@ -3,10 +3,7 @@ package com.example.lab2.basic;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Класс для разделения четных и нечетных чисел
- * Задание 4
- */
+
 public class OddEvenSeparator {
     private final List<Integer> numbers;
 
