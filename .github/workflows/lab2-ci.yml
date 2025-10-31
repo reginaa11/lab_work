@@ -1,0 +1,56 @@
+name: Lab2 CI
+
+on:
+  push:
+    branches: [ lab2 ]
+  pull_request:
+    branches: [ main, lab2 ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: mvn -B compile
+
+      - name: Run Checkstyle
+        run: mvn checkstyle:check
+
+      - name: Verify file structure
+        run: |
+          echo "=== Проверка структуры файлов ==="
+          find src/main/java -type f -name "*.java" | sort
+          
+
+      - name: Simple compilation test
+        run: |
+          echo "=== Тест компиляции основных классов ==="
+          # Компилируем основные классы по одному для проверки
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/Button.java
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/Balance.java
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/Bell.java
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/OddEvenSeparator.java
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/Table.java
+          
+
+      - name: Test geometry compilation
+        run: |
+          echo "=== Тест компиляции геометрических классов ==="
+          # Компилируем геометрические классы в правильном порядке
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/exceptions/GeometryException.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/exceptions/InvalidDimensionException.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/geometry2d/Figure.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/geometry2d/Circle.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/geometry2d/Rectangle.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/geometry3d/Cylinder.java
