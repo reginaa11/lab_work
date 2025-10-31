@@ -1,10 +1,10 @@
-name: Lab1 CI
+name: Lab2 CI
 
 on:
   push:
-    branches: [ lab1 ]
+    branches: [ lab2 ]
   pull_request:
-    branches: [ main, lab1 ]
+    branches: [ main, lab2 ]
 
 jobs:
   build-and-test:
@@ -27,14 +27,13 @@ jobs:
       - name: Run Checkstyle
         run: mvn checkstyle:check
 
-      - name: Test Lab1 compilation
+      - name: Test Lab2 compilation
         run: |
-          javac -d build src/main/java/com/example/lab1/HelloProgram.java
-          echo "✅ Lab1 program compiles successfully"
+          javac -d build src/main/java/com/example/lab2/Main.java
+          echo " Lab2 program compiles successfully"
 
-      - name: Verify program output
+      - name: Run Lab2 demo
         run: |
           cd src/main/java
-          javac com/example/lab1/HelloProgram.java
-          echo -e "TestUser" | java com.example.lab1.HelloProgram | grep -q "Hello, TestUser!"
-          echo "✅ Program produces correct output"
+          javac com/example/lab2/Main.java
+          java com.example.lab2.Main
