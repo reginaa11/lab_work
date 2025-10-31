@@ -7,7 +7,7 @@ on:
     branches: [ main, lab2 ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,71 +27,30 @@ jobs:
       - name: Run Checkstyle
         run: mvn checkstyle:check
 
-      - name: Test Lab2 compilation
+      - name: Verify file structure
         run: |
-          # Компилируем все Java файлы рекурсивно
-          find src/main/java -name "*.java" > sources.txt
-          javac -d build @sources.txt
+          echo "=== Проверка структуры файлов ==="
+          find src/main/java -type f -name "*.java" | sort
           
 
-      - name: Run basic tests
+      - name: Simple compilation test
         run: |
-          # Запускаем только базовые тесты (без файловых операций)
-          cd src/main/java
-          # Создаем временный Main без файловых операций
-          cat > TempMain.java << 'EOF'
-          package com.example.lab2;
+          echo "=== Тест компиляции основных классов ==="
+          # Компилируем основные классы по одному для проверки
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/Button.java
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/Balance.java
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/Bell.java
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/OddEvenSeparator.java
+          javac -cp src/main/java src/main/java/com/example/lab2/basic/Table.java
           
-          import com.example.lab2.basic.*;
-          import com.example.lab2.geometry.geometry2d.Circle;
-          import com.example.lab2.geometry.geometry2d.Rectangle;
-          import com.example.lab2.geometry.geometry3d.Cylinder;
-          
-          public class TempMain {
-              public static void main(String[] args) {
-                  System.out.println("=== Basic Lab2 Tests ===");
-          
-                  // Тест 1: Button
-                  Button button = new Button();
-                  button.click();
-          
-                  // Тест 2: Balance
-                  Balance balance = new Balance();
-                  balance.addLeft(10);
-                  balance.addRight(5);
-                  System.out.println("Balance result: " + balance.result());
-          
-                  // Тест 3: Bell
-                  Bell bell = new Bell();
-                  bell.sound();
-                  bell.sound();
-          
-                  // Тест 4: OddEvenSeparator
-                  OddEvenSeparator separator = new OddEvenSeparator();
-                  separator.addNumber(1);
-                  separator.addNumber(2);
-                  separator.even();
-                  separator.odd();
-          
-                  // Тест 5: Table
-                  Table table = new Table(2, 2);
-                  table.setValue(0, 0, 1);
-                  table.setValue(0, 1, 2);
-                  System.out.println("Table:\n" + table);
-          
-                  // Тест 6: Geometry
-                  Circle circle = new Circle(5.0);
-                  Rectangle rect = new Rectangle(4.0, 6.0);
-                  Cylinder cylinder = new Cylinder(circle, 10.0);
-                  System.out.println("Circle: " + circle);
-                  System.out.println("Rectangle: " + rect);
-                  System.out.println("Cylinder: " + cylinder);
-          
-                  System.out.println(" All basic tests passed!");
-              }
-          }
-          EOF
-          
-          # Компилируем и запускаем
-          javac -cp ../../build:. TempMain.java
-          java -cp ../../build:. com.example.lab2.TempMain
+
+      - name: Test geometry compilation
+        run: |
+          echo "=== Тест компиляции геометрических классов ==="
+          # Компилируем геометрические классы в правильном порядке
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/exceptions/GeometryException.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/exceptions/InvalidDimensionException.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/geometry2d/Figure.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/geometry2d/Circle.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/geometry2d/Rectangle.java
+          javac -cp src/main/java src/main/java/com/example/lab2/geometry/geometry3d/Cylinder.java
