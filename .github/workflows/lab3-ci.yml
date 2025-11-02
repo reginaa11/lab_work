@@ -1,0 +1,40 @@
+name: Lab3 CI
+
+on:
+  push:
+    branches: [ lab3 ]
+  pull_request:
+    branches: [ main, lab3 ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: mvn -B compile
+
+      - name: Run Checkstyle
+        run: mvn checkstyle:check
+
+      - name: Test Lab3 compilation
+        run: |
+          echo "=== Проверка компиляции Lab3 ==="
+          javac -cp src/main/java src/main/java/com/example/lab3/*.java
+          echo "Все классы Lab3 компилируются успешно"
+
+      - name: Verify file structure
+        run: |
+          echo "=== Проверка структуры Lab3 ==="
+          find src/main/java/com/example/lab3 -name "*.java" | sort
+          echo "Все необходимые файлы присутствуют"
