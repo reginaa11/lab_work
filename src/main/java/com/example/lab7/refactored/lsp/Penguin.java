@@ -1,29 +1,20 @@
 package com.example.lab7.refactored.lsp;
 
 /**
- * Пингвин - нелетающая птица (LSP)
+ * Пингвин - нелетающая птица, не реализует FlyingBird
  */
-public class Penguin extends NonFlyingBird {
-
-    public Penguin(String name, double weight) {
-        super(name, weight);
+public class Penguin implements Bird {
+    @Override
+    public void eat() {
+        System.out.println("Пингвин ест рыбу");
     }
 
     @Override
-    public void move() {
-        System.out.println(name + " переваливается при ходьбе");
-    }
-
-    @Override
-    public void makeSound() {
-        System.out.println(name + " издает звук: Гром-гром!");
+    public String getName() {
+        return "Penguin";
     }
 
     public void swim() {
-        System.out.println(name + " плавает в холодной воде");
-    }
-
-    public void slideOnBelly() {
-        System.out.println(name + " скользит на брюхе по льду");
+        System.out.println("Пингвин плавает");
     }
 }

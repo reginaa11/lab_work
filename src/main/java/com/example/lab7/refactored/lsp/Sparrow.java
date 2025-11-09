@@ -1,23 +1,21 @@
 package com.example.lab7.refactored.lsp;
 
-
-public class Sparrow extends FlyingBird {
-
-    public Sparrow(String name, double weight) {
-        super(name, weight);
-    }
-
+/**
+ * Воробей - летающая птица
+ */
+public class Sparrow implements FlyingBird {
     @Override
     public void fly() {
-        System.out.println(name + " быстро машет крыльями и взлетает");
+        System.out.println("Воробей летит");
     }
 
     @Override
-    public void makeSound() {
-        System.out.println(name + " чирикает: Чик-чирик!");
+    public void eat() {
+        System.out.println("Воробей ест");
     }
 
-    public void buildNest() {
-        System.out.println(name + " строит гнездо из веточек и травы");
+    @Override
+    public String getName() {
+        return "Sparrow";
     }
 }
