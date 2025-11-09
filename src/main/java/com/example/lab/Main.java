@@ -1,8 +1,8 @@
-package com.example.lab1;
+package com.example.lab;
 
 import java.util.Scanner;
 
-public class HelloProgram {
+public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
