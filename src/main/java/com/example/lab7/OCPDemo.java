@@ -1,4 +1,4 @@
 package com.example.lab7;
 
-public class Main {
+public class OCPDemo {
 }
