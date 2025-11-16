@@ -1,6 +1,6 @@
-package com.example.lab7.lsp;
+package com.example.lab8.lsp;
 
-public class Sparrow extends Bird {
+public class Sparrow extends FlyingBird {
     @Override
     public void eat() {
         System.out.println("Чирик-чирик, клюю семечки, чирик-чирик");

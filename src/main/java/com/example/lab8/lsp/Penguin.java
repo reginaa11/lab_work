@@ -1,4 +1,4 @@
-package com.example.lab7.lsp;
+package com.example.lab8.lsp;
 
 public class Penguin extends Bird {
     @Override
