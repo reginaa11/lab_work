@@ -1,4 +1,6 @@
 package com.example.lab8.ocp;
 
-public class DiscountStrategy {
+
+public interface DiscountStrategy {
+    double applyDiscount(double price);
 }
