@@ -1,0 +1,39 @@
+name: Анализ кода SonarCloud
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  analyze:
+    name: Анализ SonarCloud
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build project
+        run: mvn clean compile
+
+      - name: SonarCloud analysis
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.projectKey=reginaa11_lab_work \
+            -Dsonar.organization=reginaa11 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.java.binaries=target/classes
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
