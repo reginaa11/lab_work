@@ -1,4 +1,4 @@
 package com.example.lab8.dip;
-
-public class MessageSender {
+public interface MessageSender {
+    void send(String message);
 }

@@ -1,7 +1,9 @@
-package com.example.lab7.dip;
+package com.example.lab8.dip;
 
-public class EmailSender {
-    public void sendEmail(String message) {
+public class EmailSender implements MessageSender {
+
+    @Override
+    public void send(String message) {
         System.out.println("Отправка письма: " + message);
     }
 }
