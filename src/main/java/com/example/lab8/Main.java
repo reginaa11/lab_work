@@ -1,11 +1,15 @@
-import com.example.lab7.dip.NotificationService;
-import com.example.lab7.isp.Machine;
-import com.example.lab7.isp.OldPrinter;
-import com.example.lab7.lsp.Bird;
-import com.example.lab7.lsp.Penguin;
-import com.example.lab7.lsp.Sparrow;
-import com.example.lab7.ocp.DiscountCalculator;
-import com.example.lab7.srp.ReportManager;
+package com.example.lab8;
+
+import com.example.lab8.dip.EmailSender;
+import com.example.lab8.dip.NotificationService;
+import com.example.lab8.dip.SmsSender;
+import com.example.lab8.isp.OldPrinter;
+import com.example.lab8.isp.Printer;
+import com.example.lab8.lsp.Bird;
+import com.example.lab8.lsp.Penguin;
+import com.example.lab8.lsp.Sparrow;
+import com.example.lab8.ocp.DiscountCalculator;
+import com.example.lab8.srp.ReportManager;
 
 import java.util.List;
 
@@ -24,15 +28,18 @@ public class Main {
 
         // ---------- L ----------
         displayBird(new Sparrow());
-        displayBird(new Penguin());     // Здесь будет исключение
+        // displayBird(new Penguin());     // Здесь будет исключение(закоментил чтобы не блокировал код ниже)
 
         // ---------- I ----------
-        Machine printer = new OldPrinter();
+        Printer printer = new OldPrinter();
         printer.print("Отчёт за неделю");
 
         // ---------- D ----------
-        NotificationService service = new NotificationService();
-        service.send("Ваш заказ готов к выдаче!");
+        NotificationService emailService = new NotificationService(new EmailSender());
+        emailService.send("Ваш заказ готов к выдаче!");
+        // Проверка SmsSender
+        NotificationService smsService = new NotificationService(new SmsSender());
+        smsService.send("Ваш заказ готов к выдаче!");
     }
 
     public static void displayBird(Bird bird) {
