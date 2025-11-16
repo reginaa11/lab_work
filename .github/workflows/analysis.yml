@@ -5,7 +5,6 @@ on:
     branches: ["main", "lab8"]
   pull_request:
     branches: ["main", "lab8"]
-    types: [opened, synchronize, reopened]
 
 jobs:
   analyze:
@@ -25,18 +24,15 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-
       - name: Build project
-        run: mvn clean compile
+        run: mvn clean compile -q
 
       - name: SonarCloud analysis
-        run: mvn sonar:sonar
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.projectKey=reginaa11_lab_work \
+            -Dsonar.organization=reginaa11 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.java.binaries=target/classes
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
