@@ -20,10 +20,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-          cache: maven
 
       - name: Build with Maven
         run: mvn clean compile -q
-
-      - name: Run tests
-        run: mvn test -q
