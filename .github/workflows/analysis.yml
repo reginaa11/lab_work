@@ -3,14 +3,11 @@ name: SonarCloud Analysis
 on:
   push:
     branches: ["main", "lab8"]
-  pull_request:
-    branches: ["main", "lab8"]
 
 jobs:
   analyze:
     name: Analyze with SonarCloud
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
 
     steps:
       - name: Checkout code
@@ -25,7 +22,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build project
-        run: mvn clean compile -q
+        run: mvn clean compile
 
       - name: SonarCloud analysis
         run: |
