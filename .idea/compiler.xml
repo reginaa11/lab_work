@@ -6,11 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Java_labs" />
-<<<<<<< HEAD
+        <module name="lab7" />
         <module name="java-labs" />
-=======
->>>>>>> lab1
       </profile>
     </annotationProcessing>
   </component>
