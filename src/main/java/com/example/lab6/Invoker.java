@@ -46,7 +46,6 @@ public class Invoker {
 
         } catch (Exception e) {
             System.err.println("Ошибка при вызове метода: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
