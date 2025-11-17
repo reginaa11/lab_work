@@ -24,7 +24,7 @@ jobs:
       - name: Build and analyze with Maven
         run: |
           mvn clean verify sonar:sonar \
-            -Dsonar.projectKey=lab_work \
+            -Dsonar.projectKey=reginaa11_lab_work \
             -Dsonar.organization=reginaa11 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.java.binaries=target/classes \
